@@ -1,4 +1,5 @@
 # 📦 Text Classification Microservices with FastAPI
+[![Docker Pulls](https://img.shields.io/docker/pulls/ataur077/text-classification-custom.svg)](https://hub.docker.com/r/ataur077/text-classification-custom)
 A microservice-based architecture for text classification, using:
 
 - **🔁 API Gateway (FastAPI):** One unified endpoint.
