@@ -7,10 +7,13 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && pip install -r requirements.txt
 
 # Copy all source code
+# Set working dir and install dependencies...
 COPY . .
 
-# Expose all ports
-EXPOSE 8000 8001 8002
+# ✅ Fix permission issue
+RUN chmod +x ./start.sh
 
-# Start all 3 services
+# Expose ports and run services
+EXPOSE 8000 8001 8002
 CMD ["./start.sh"]
+
