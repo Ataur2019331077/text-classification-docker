@@ -1,11 +1,11 @@
-name: 🚀 Docker Image CI/CD
+name: 🚀 Combined Docker Image CI/CD
 
 on:
   push:
     branches: [main]
 
 jobs:
-  build-and-push:
+  build-and-push-combined:
     runs-on: ubuntu-latest
     env:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -15,29 +15,15 @@ jobs:
       - name: 📥 Checkout code
         uses: actions/checkout@v3
 
-      - name: 🔐 Log in to Docker Hub
+      - name: 🔐 Docker login
         uses: docker/login-action@v3
         with:
           username: ${{ env.DOCKERHUB_USERNAME }}
           password: ${{ env.DOCKERHUB_TOKEN }}
 
-      - name: 📦 Build and push Gateway
+      - name: 🛠️ Build and push combined image
         uses: docker/build-push-action@v5
         with:
-          context: ./gateway
+          context: ./combined
           push: true
-          tags: ${{ env.DOCKERHUB_USERNAME }}/text-classification-gateway:latest
-
-      - name: 📦 Build and push Sentiment Classifier
-        uses: docker/build-push-action@v5
-        with:
-          context: ./sentiment_classifier
-          push: true
-          tags: ${{ env.DOCKERHUB_USERNAME }}/text-classification-sentiment:latest
-
-      - name: 📦 Build and push Custom Classifier
-        uses: docker/build-push-action@v5
-        with:
-          context: ./custom_classifier
-          push: true
-          tags: ${{ env.DOCKERHUB_USERNAME }}/text-classification-custom:latest
+          tags: ${{ env.DOCKERHUB_USERNAME }}/text-classification-combined:latest
